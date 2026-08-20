@@ -18,6 +18,27 @@ def listing_files(dir):
     return all_files_path, text_files 
 
 
+BLOCKED_FILES ={
+    ".exe", ".dll", ".sys", ".bat", ".sh", ".config",
+}
+def filter_files(dir):
+    
+    allowed_files= []
+    disallowed_files = []
+
+    paths, not_needed = listing_files(dir)
+
+    for file_path in paths:
+        name, ext = os.path.splitext(file_path)
+
+        if "test" not in name or ext in BLOCKED_FILES:
+            disallowed_files.append(file_path)
+        else: 
+            allowed_files.append(file_path)
+
+    return allowed_files, disallowed_files
+
+
 
 def backup_dir(dir):
 

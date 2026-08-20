@@ -1,45 +1,11 @@
-from sprint1 import listing_files
+from files import listing_files, filter_files
 import os
 import logging
 
 
-BLOCKED_FILES ={
-    ".exe", ".dll", ".sys", ".bat", ".sh", ".config",
-}
-
-def setup_logging():
-    logging.basicConfig(
-            filename='audit.log',
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s'
-        )
-    logging.info("=== Simulation Started ===")
-
-def filter_files(dir):
-    
-    allowed_files= []
-    disallowed_files = []
-
-    paths, not_needed = listing_files(dir)
-
-    for file_path in paths:
-        name, ext = os.path.splitext(file_path)
-
-        if "test" not in name or ext in BLOCKED_FILES:
-            disallowed_files.append(file_path)
-        else: 
-            allowed_files.append(file_path)
-
-    return allowed_files, disallowed_files
-
-
 def dry_run(dir):
 
-    setup_logging()
-    if not os.path.exists(dir):
 
-        logging.error(f"Target directory '{dir}' does not exist.")
-        return
 
     allowed_files, disallowed_files = filter_files(dir)
    
