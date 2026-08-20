@@ -3,29 +3,19 @@ import shutil
 
 def listing_files(dir):
 
-    all_files=[]
+    all_files_path=[]
     text_files = []   
-    print(f'Inside the {dir} directory there is the following files')
 
     for root, dirs, files in os.walk(dir):
         for f in files:
-
-            all_files.append(f)
+            path = os.path.join(root, f)
+            all_files_path.append(path)
 
             name,ext = os.path.splitext(f)
             if ext == '.txt':
                 text_files.append(f)
 
-            print(f'{os.path.join(root, f)}    ext: {ext}')
-
-        print(f'directory {root} contains {len(files)}')
-        print('_'*30)
-
-    print(f"There are {len(all_files)} files found.")
-    print("these are the text files:")
-    for x in text_files:
-        print(text_files)
-
+    return all_files_path, text_files 
 
 
 
